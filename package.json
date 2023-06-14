@@ -5,7 +5,6 @@
   "description": "React TypeScript on Replit, using Vite bundler",
   "scripts": {
     "dev":"vite",
-    // "dev": "vite --port 3000 --host --open",
     "build": "vite build",
     "preview": "vite preview"
   },
