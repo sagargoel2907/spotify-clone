@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('running');
-    if (localStorage.getItem('accessKey')) {
+    if (localStorage.getItem('accessToken')) {
         window.location.href = 'dashboard/dashboard.html';
     }
     else {
