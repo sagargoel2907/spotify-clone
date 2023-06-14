@@ -7,9 +7,18 @@
     <link rel="stylesheet" href="../main.css" />
   </head>
 
-  <body>
-    <h1 class="text-3xl font-bold text-red-300 underline">Welcome to Login</h1>
-    <button id="login-to-spotify" class="bg-black text-white">Login</button>
+  <body class="bg-green">
+    <main class="h-screen flex justify-center items-center">
+      <section class="flex gap-8 flex-col items-center">
+        <img class="h-[30vh]" src="https://cdn-icons-png.flaticon.com/128/2111/2111685.png" alt="" />
+        <input
+          type="button"
+          id="login-to-spotify"
+          class="bg-black text-white p-1 rounded-md h-12 w-64"
+          value="Login to Spotify"
+        />
+      </section>
+    </main>
     <script src="login.js" type="module"></script>
   </body>
 </html>
