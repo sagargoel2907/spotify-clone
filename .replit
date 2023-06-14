@@ -30,3 +30,6 @@ language = "nodejs"
 [deployment]
 build = ["sh", "-c", "npm run build"]
 run = ["sh", "-c", "npm run preview"]
+
+# git config --global user.email "sagargoel@replit.com"
+# git config --global user.name "sagar replit"
