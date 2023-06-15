@@ -2,8 +2,8 @@ import { fetchData } from "../api";
 import { ENDPOINTS } from "../common";
 
 const onProfileClick = (event) => {
-    event.stopPropogation();
-    const menu = document.getElementById("#user-profile-menu");
+    event.stopPropagation();
+    const menu = document.getElementById("user-profile-menu");
     menu.classList.toggle("hidden");
 };
 
@@ -17,7 +17,7 @@ const loadUserProfile = async () => {
     displayNameElement.textContent = displayName;
 
 
-    userProfileBtn.addEventListener("onclick", onProfileClick);
+    userProfileBtn.addEventListener("click", onProfileClick);
     if (images.length) {
         defaultImage.classList.add("hidden");
     } else {
@@ -28,3 +28,10 @@ const loadUserProfile = async () => {
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
 });
+
+document.addEventListener('click',()=>{
+    const menu = document.getElementById("user-profile-menu");
+    if(!menu.classList.contains("hidden")){
+        menu.classList.add("hidden");
+    }
+})
