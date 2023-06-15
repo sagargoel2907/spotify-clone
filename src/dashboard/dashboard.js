@@ -9,10 +9,9 @@ const loadUserProfile = async () => {
     const userProfile = await fetchData(ENDPOINTS.userProfile);
     const { display_name: displayName, images } = userProfile;
     displayNameElement.textContent = displayName;
-
-    if(images.length){
+    if (images.length) {
         defaultImage.classList.add("hidden");
-    }else{
+    } else {
         defaultImage.classList.remove("hidden");
     }
 };
