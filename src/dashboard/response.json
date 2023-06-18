@@ -1,0 +1,152 @@
+{
+    "message": "Editor's picks",
+    "playlists": {
+        "href": "https://api.spotify.com/v1/browse/featured-playlists?country=IN&timestamp=2023-06-18T15%3A44%3A29&offset=0&limit=5",
+        "items": [
+            {
+                "collaborative": false,
+                "description": "Ultimate 101 Punjabi Hits with Shubh",
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/playlist/37i9dQZF1DX5cZuAHLNjGz"
+                },
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX5cZuAHLNjGz",
+                "id": "37i9dQZF1DX5cZuAHLNjGz",
+                "images": [
+                    {
+                        "height": null,
+                        "url": "https://i.scdn.co/image/ab67706f0000000358baa5e80109ff59507fd98c",
+                        "width": null
+                    }
+                ],
+                "name": "Punjabi 101",
+                "owner": {
+                    "display_name": "Spotify",
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/spotify"
+                    },
+                    "href": "https://api.spotify.com/v1/users/spotify",
+                    "id": "spotify",
+                    "type": "user",
+                    "uri": "spotify:user:spotify"
+                },
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTY4NjkzNzU4OCwwMDAwMDAwMGM2MDFjMmQ3Y2M1Y2U3MTZjMjBiMDQ1MWYwMWU1OTNi",
+                "tracks": {
+                    "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX5cZuAHLNjGz/tracks",
+                    "total": 101
+                },
+                "type": "playlist",
+                "uri": "spotify:playlist:37i9dQZF1DX5cZuAHLNjGz"
+            },
+            {
+                "collaborative": false,
+                "description": "From India to MENA, these hits will make you dance.",
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/playlist/37i9dQZF1DX7cLxqtNO3zl"
+                },
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX7cLxqtNO3zl",
+                "id": "37i9dQZF1DX7cLxqtNO3zl",
+                "images": [
+                    {
+                        "height": null,
+                        "url": "https://i.scdn.co/image/ab67706f0000000384696e0bd9318a598cc9373d",
+                        "width": null
+                    }
+                ],
+                "name": "Bollywood Araby",
+                "owner": {
+                    "display_name": "Spotify",
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/spotify"
+                    },
+                    "href": "https://api.spotify.com/v1/users/spotify",
+                    "id": "spotify",
+                    "type": "user",
+                    "uri": "spotify:user:spotify"
+                },
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTY4NjkxODMzNywwMDAwMDAwMDYyYjAyMTRkNDRiZDY5M2MzNDQyOTE3OWI3ODlmYjQz",
+                "tracks": {
+                    "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX7cLxqtNO3zl/tracks",
+                    "total": 50
+                },
+                "type": "playlist",
+                "uri": "spotify:playlist:37i9dQZF1DX7cLxqtNO3zl"
+            },
+            {
+                "collaborative": false,
+                "description": "Get on loop - The mesmerising Voice of Sid",
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/playlist/37i9dQZF1DXb5Hc9BmAT8t"
+                },
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXb5Hc9BmAT8t",
+                "id": "37i9dQZF1DXb5Hc9BmAT8t",
+                "images": [
+                    {
+                        "height": null,
+                        "url": "https://i.scdn.co/image/ab67706f000000032b7f8b631e373cde51cbbc42",
+                        "width": null
+                    }
+                ],
+                "name": "Soulful Sid Sriram",
+                "owner": {
+                    "display_name": "Spotify",
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/spotify"
+                    },
+                    "href": "https://api.spotify.com/v1/users/spotify",
+                    "id": "spotify",
+                    "type": "user",
+                    "uri": "spotify:user:spotify"
+                },
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTY4NjgzNjU5NSwwMDAwMDAwMGIzNDExZjUxZjRjNmY0YTIxYjBlMDJmOTJiOWMwMjQw",
+                "tracks": {
+                    "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DXb5Hc9BmAT8t/tracks",
+                    "total": 75
+                },
+                "type": "playlist",
+                "uri": "spotify:playlist:37i9dQZF1DXb5Hc9BmAT8t"
+            },
+            {
+                "collaborative": false,
+                "description": "Retro Punjabi hits. Cover: Amar Singh Chamkila",
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/playlist/37i9dQZF1DWU9w5Zm8nbx8"
+                },
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWU9w5Zm8nbx8",
+                "id": "37i9dQZF1DWU9w5Zm8nbx8",
+                "images": [
+                    {
+                        "height": null,
+                        "url": "https://i.scdn.co/image/ab67706f00000003c9d96e2c371b61d2053af83e",
+                        "width": null
+                    }
+                ],
+                "name": "Punjabi Legacy",
+                "owner": {
+                    "display_name": "Spotify",
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/spotify"
+                    },
+                    "href": "https://api.spotify.com/v1/users/spotify",
+                    "id": "spotify",
+                    "type": "user",
+                    "uri": "spotify:user:spotify"
+                },
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTY4NjgzNTc1NywwMDAwMDAwMDFmODZhY2FkMmMwNGJhNmZmNGRjZTJiYjUyM2NhNTZl",
+                "tracks": {
+                    "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWU9w5Zm8nbx8/tracks",
+                    "total": 50
+                },
+                "type": "playlist",
+                "uri": "spotify:playlist:37i9dQZF1DWU9w5Zm8nbx8"
+            },
+            {
+                "collaborative": false,
+                "description":"Your favourite Marathi love songs on the go.
