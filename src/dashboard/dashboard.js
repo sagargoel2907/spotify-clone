@@ -84,10 +84,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })
 
-    document.querySelector(".contents").addEventListener('scroll', (event) => {
+    document.querySelector(".content").addEventListener('scroll', (event) => {
+        // alert();
         const header = document.querySelector('.header');
+        // alert(JSON.stringify(event));
+        // alert(header);
         const { scrollTop } = event.target;
         if (scrollTop >= header.offsetHeight) {
+            // alert();
             header.classList.add("sticky", "top-0", "bg-black-secondary");
             header.classList.remove("bg-transparent");
         } else {
