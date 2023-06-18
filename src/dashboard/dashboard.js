@@ -30,7 +30,18 @@ const loadUserProfile = async () => {
 
 const loadFeaturedPlaylist = async () => {
     const featuredPlaylist = await fetchData(ENDPOINTS.featuredPlaylist);
-    console.log(featuredPlaylist);
+    const {playlists:{items}}=featuredPlaylist;
+    let featuredPlaylistElement=document.getElementById('featured-playlist-items');
+    let featuredPlaylistHTML='';
+    for (const {name,description,images} of items){
+        featuredPlaylistHTML+=`
+        <section>
+            <img src="${images[0].url}" alt="">
+            <h2>${name}</h2>
+            <h3>${description}</h3>
+        </section>`
+    }
+    featuredPlaylistElement.innerHTML=featuredPlaylistHTML;
 };
 
 document.addEventListener("DOMContentLoaded", () => {
