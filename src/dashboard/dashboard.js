@@ -44,8 +44,8 @@ const loadPlaylist = async (endpoint, elementId) => {
         playlistItem.setAttribute('data-type', 'playlist');
         playlistItem.innerHTML = `
         <img src="${images[0].url}" alt="" class="rounded mb-2 object-contain"/>
-        <h2 class="text-base">${name}</h2>
-        <h3 class="text-sm">${description}</h3>`
+        <h2 class="text-base font-semibold truncate mb-2">${name}</h2>
+        <h3 class="text-sm text-secondary line-clamp-2">${description}</h3>`
         playlistSection.appendChild(playlistItem);
     }
 };
