@@ -28,10 +28,9 @@ const loadUserProfile = async () => {
     }
 };
 
-const loadFeaturedPlaylist=async ()=>{
-    const featuredPlaylist= await fetchData(ENDPOINTS.featuredPlaylist);
+const loadFeaturedPlaylist = async () => {
+    const featuredPlaylist = await fetchData(ENDPOINTS.featuredPlaylist);
     console.log(featuredPlaylist);
-    alert(featuredPlaylist);
 };
 
 document.addEventListener("DOMContentLoaded", () => {
