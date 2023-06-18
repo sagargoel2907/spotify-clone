@@ -32,22 +32,28 @@ const loadUserProfile = async () => {
     }
 };
 
-const loadFeaturedPlaylist = async () => {
-    const featuredPlaylist = await fetchData(ENDPOINTS.featuredPlaylist);
-    const { playlists: { items } } = featuredPlaylist;
-    let featuredPlaylistSection = document.getElementById('featured-playlist-items');
+const loadPlaylist = async (endpoint, elementId) => {
+    const playlist = await fetchData(endpoint);
+    const { playlists: { items } } = playlist;
+    let playlistSection = document.getElementById(elementId);
     for (const { name, description, images, id } of items) {
-        const featuredPlaylistItem = document.createElement('section');
-        featuredPlaylistItem.className = 'rounded border-2 border-solid p-4 hover:cursor-pointer';
-        featuredPlaylistItem.id = id;
-        featuredPlaylistItem.addEventListener('click', onPlaylistItemClick);
-        featuredPlaylistItem.setAttribute('data-type', 'playlist');
-        featuredPlaylistItem.innerHTML = `
+        const playlistItem = document.createElement('section');
+        playlistItem.className = 'rounded border-2 border-solid p-4 hover:cursor-pointer';
+        playlistItem.id = id;
+        playlistItem.addEventListener('click', onPlaylistItemClick);
+        playlistItem.setAttribute('data-type', 'playlist');
+        playlistItem.innerHTML = `
         <img src="${images[0].url}" alt="" class="rounded mb-2 object-contain"/>
         <h2 class="text-base">${name}</h2>
         <h3 class="text-sm">${description}</h3>`
-        featuredPlaylistSection.appendChild(featuredPlaylistItem);
+        playlistSection.appendChild(playlistItem);
     }
+};
+
+
+const loadPlaylists = () => {
+    loadPlaylist(ENDPOINTS.featuredPlaylist, "featured-playlist-items");
+    loadPlaylist(ENDPOINTS.featuredPlaylist, "top-playlist-items");
 };
 
 document.addEventListener("DOMContentLoaded", () => {
