@@ -14,7 +14,7 @@
     >
       <aside class="sidenav">aside</aside>
 
-      <article class="content bg-black-base">
+      <article class="content relative overflow-auto">
         <header class="border-2 border-solid bg-transparent px-4 py-2">
           <nav class="relative flex justify-end">
             <button
@@ -54,7 +54,13 @@
             </ul>
           </nav>
         </header>
-        <section id="page-contents"></section>
+        <section
+          id="cover-content"
+          class="absolute -z-[1] h-72 w-full bg-gradient-to-b from-light-black to-black-base px-4 grid content-center"
+        >
+          <h1>Hello Sagar</h1>
+        </section>
+        <section id="page-contents" class="bg-black-base mt-60"></section>
       </article>
 
       <footer class="now-playing">now-playing</footer>

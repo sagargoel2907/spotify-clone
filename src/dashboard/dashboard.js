@@ -76,11 +76,25 @@ document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
     fillContentForDashboard();
     loadPlaylists();
+
+    document.addEventListener('click', () => {
+        const menu = document.getElementById("user-profile-menu");
+        if (!menu.classList.contains("hidden")) {
+            menu.classList.add("hidden");
+        }
+    })
+
+    document.querySelector(".contents").addEventListener('scroll', (event) => {
+        const header = document.querySelector('.header');
+        const { scrollTop } = event.target;
+        if (scrollTop >= header.offsetHeight) {
+            header.classList.add("sticky", "top-0", "bg-black-secondary");
+            header.classList.remove("bg-transparent");
+        } else {
+            header.classList.remove("sticky", "top-0", "bg-black-secondary");
+            header.classList.add("bg-transparent");
+        }
+    })
+
 });
 
-document.addEventListener('click', () => {
-    const menu = document.getElementById("user-profile-menu");
-    if (!menu.classList.contains("hidden")) {
-        menu.classList.add("hidden");
-    }
-})
