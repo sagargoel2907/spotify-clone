@@ -8,7 +8,7 @@
     <script type="module" src="./dashboard.js"></script>
   </head>
 
-  <body class="h-screen bg-black text-primary">
+  <body class="h-screen bg-black-base text-primary">
     <main
       class="grid-template-areas grid h-full grid-cols-[250px_1fr] grid-rows-[1fr_auto]"
     >
@@ -18,9 +18,9 @@
         <header class="border-2 border-solid px-4 py-2">
           <nav class="relative flex justify-end">
             <button
-            type="button"
+              type="button"
               id="user-profile-btn"
-              class="flex items-center gap-x-2 rounded-2xl p-2 px-4 hover:bg-light-black"
+              class="flex items-center gap-x-2 rounded-2xl p-2 px-4 hover:bg-black-secondary"
             >
               <section>
                 <svg
@@ -46,7 +46,7 @@
             </button>
             <ul
               id="user-profile-menu"
-              class="absolute top-14 hidden w-40 rounded-lg bg-light-black p-0.5"
+              class="absolute top-14 hidden w-40 rounded-lg bg-black-secondary p-0.5"
             >
               <li id="menu-logout-btn" class="rounded-lg p-1 hover:bg-gray">
                 Log Out
@@ -56,23 +56,10 @@
         </header>
         <article>
           <h1>Featured Playlist</h1>
-          <section id="featured-playlist-items" class="grid grid-cols-auto-fill-card gap-5">
-            <section>
-              <img src="https://i.scdn.co/image/ab67706f0000000358baa5e80109ff59507fd98c" alt="">
-              <h2>Name</h2>
-              <h3>Description</h3>
-            </section>
-            <section>
-              <img src="https://i.scdn.co/image/ab67706f0000000358baa5e80109ff59507fd98c" alt="">
-              <h2>Name</h2>
-              <h3>Description</h3>
-            </section>
-            <section>
-              <img src="https://i.scdn.co/image/ab67706f0000000358baa5e80109ff59507fd98c" alt="">
-              <h2>Name</h2>
-              <h3>Description</h3>
-            </section>
-          </section>
+          <section
+            id="featured-playlist-items"
+            class="grid grid-cols-auto-fill-card gap-5"
+          ></section>
         </article>
       </section>
 

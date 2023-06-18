@@ -10,6 +10,10 @@ const onProfileClick = (event) => {
     }
 };
 
+const onPlaylistItemClick = () => {
+    console.log('clicked');
+};
+
 const loadUserProfile = async () => {
     const defaultImage = document.querySelector("#default-image");
     const userProfileBtn = document.querySelector("#user-profile-btn");
@@ -30,18 +34,20 @@ const loadUserProfile = async () => {
 
 const loadFeaturedPlaylist = async () => {
     const featuredPlaylist = await fetchData(ENDPOINTS.featuredPlaylist);
-    const {playlists:{items}}=featuredPlaylist;
-    let featuredPlaylistElement=document.getElementById('featured-playlist-items');
-    let featuredPlaylistHTML='';
-    for (const {name,description,images} of items){
-        featuredPlaylistHTML+=`
-        <section>
-            <img src="${images[0].url}" alt="">
-            <h2>${name}</h2>
-            <h3>${description}</h3>
-        </section>`
+    const { playlists: { items } } = featuredPlaylist;
+    let featuredPlaylistSection = document.getElementById('featured-playlist-items');
+    for (const { name, description, images, id } of items) {
+        const featuredPlaylistItem = document.createElement('section');
+        featuredPlaylistItem.className = 'rounded border-2 border-solid p-4 hover:cursor-pointer';
+        featuredPlaylistItem.id = id;
+        featuredPlaylistItem.addEventListener('click', onPlaylistItemClick);
+        featuredPlaylistItem.setAttribute('data-type', 'playlist');
+        featuredPlaylistItem.innerHTML = `
+        <img src="${images[0].url}" alt="" class="rounded mb-2 object-contain"/>
+        <h2 class="text-base">${name}</h2>
+        <h3 class="text-sm">${description}</h3>`
+        featuredPlaylistSection.appendChild(featuredPlaylistItem);
     }
-    featuredPlaylistElement.innerHTML=featuredPlaylistHTML;
 };
 
 document.addEventListener("DOMContentLoaded", () => {

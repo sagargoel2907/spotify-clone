@@ -149,4 +149,45 @@
             },
             {
                 "collaborative": false,
-                "description":"Your favourite Marathi love songs on the go.
+                "description": "Your favourite Marathi love songs on the go.Cover - Reteish & Genelia Deshmukh",
+                "external_urls": {
+                    "spotify": "https://open.spotify.com/playlist/37i9dQZF1DWW8UKcWYfq9u"
+                },
+                "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWW8UKcWYfq9u",
+                "id": "37i9dQZF1DWW8UKcWYfq9u",
+                "images": [
+                    {
+                        "height": null,
+                        "url": "https://i.scdn.co/image/ab67706f0000000330c1a3fcb2bc079650704c4a",
+                        "width": null
+                    }
+                ],
+                "name": "Romantic Marathi Hits",
+                "owner": {
+                    "display_name": "Spotify",
+                    "external_urls": {
+                        "spotify": "https://open.spotify.com/user/spotify"
+                    },
+                    "href": "https://api.spotify.com/v1/users/spotify",
+                    "id": "spotify",
+                    "type": "user",
+                    "uri": "spotify:user:spotify"
+                },
+                "primary_color": null,
+                "public": null,
+                "snapshot_id": "MTY4NzA2NjIwMCwwMDAwMDAwMGIwNjY3NjIxYTExZmQyYTdhYTMxYzRkZTJmNTY3ODhk",
+                "tracks": {
+                    "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWW8UKcWYfq9u/tracks",
+                    "total": 58
+                },
+                "type": "playlist",
+                "uri": "spotify:playlist:37i9dQZF1DWW8UKcWYfq9u"
+            }
+        ],
+        "limit": 5,
+        "next": "https://api.spotify.com/v1/browse/featured-playlists?country=IN&timestamp=2023-06-18T15%3A44%3A29&offset=5&limit=5",
+        "offset": 0,
+        "previous": null,
+        "total": 14
+    }
+}
