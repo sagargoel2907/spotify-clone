@@ -58,7 +58,7 @@ const loadPlaylists = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
-    loadFeaturedPlaylist();
+    loadPlaylists();
 });
 
 document.addEventListener('click', () => {
