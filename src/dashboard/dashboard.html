@@ -8,14 +8,14 @@
     <script type="module" src="./dashboard.js"></script>
   </head>
 
-  <body class="h-screen bg-black-base text-primary">
+  <body class="h-screen bg-black text-primary">
     <main
       class="grid-template-areas grid h-full grid-cols-[250px_1fr] grid-rows-[1fr_auto]"
     >
       <aside class="sidenav">aside</aside>
 
-      <section class="content">
-        <header class="border-2 border-solid px-4 py-2">
+      <article class="content bg-black-base">
+        <header class="border-2 border-solid bg-transparent px-4 py-2">
           <nav class="relative flex justify-end">
             <button
               type="button"
@@ -54,21 +54,8 @@
             </ul>
           </nav>
         </header>
-        <article>
-          <h1>Featured Playlist</h1>
-          <section
-            id="featured-playlist-items"
-            class="grid grid-cols-auto-fill-card gap-5"
-          ></section>
-        </article>
-        <article>
-          <h1>Top Playlist</h1>
-          <section
-            id="top-playlist-items"
-            class="grid grid-cols-auto-fill-card gap-5"
-          ></section>
-        </article>
-      </section>
+        <section id="page-contents"></section>
+      </article>
 
       <footer class="now-playing">now-playing</footer>
     </main>
