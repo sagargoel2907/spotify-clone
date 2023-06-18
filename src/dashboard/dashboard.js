@@ -38,7 +38,7 @@ const loadPlaylist = async (endpoint, elementId) => {
     let playlistSection = document.getElementById(elementId);
     for (const { name, description, images, id } of items) {
         const playlistItem = document.createElement('section');
-        playlistItem.className = 'rounded border-2 border-solid p-4 hover:cursor-pointer bg-black-secondary hover:bg-light-black';
+        playlistItem.className = 'rounded p-4 hover:cursor-pointer bg-black-secondary hover:bg-light-black';
         playlistItem.id = id;
         playlistItem.addEventListener('click', onPlaylistItemClick);
         playlistItem.setAttribute('data-type', 'playlist');
@@ -52,11 +52,11 @@ const loadPlaylist = async (endpoint, elementId) => {
 
 const fillContentForDashboard = () => {
     const pageContents = document.querySelector("#page-contents");
-    const playlistMap = new Map(['featured playlist', 'featured-playlist-items'], ['top playlist', 'top-playlist-items']);
+    const playlistMap = new Map([['featured playlist', 'featured-playlist-items'], ['top playlist', 'top-playlist-items']]);
     let dashboardContent = "";
     for (let [type, id] of playlistMap) {
         dashboardContent += `<article>
-        <h1 class="mb-4 capitalize font-bold text-2xl">${type}</h1>
+        <h1 class="m-4 capitalize font-bold text-2xl">${type}</h1>
         <section
           id="${id}"
           class="grid grid-cols-auto-fill-card gap-5"
