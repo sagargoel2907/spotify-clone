@@ -54,9 +54,11 @@ const loadPlaylist = async (endpoint, elementId) => {
 };
 
 
-const loadPlaylistTracks = async () => {
-    const playlist = await fetchData(`ENDPOINTS.playlist/${playlistId}`)
-    const playlistTracksection = document.querySelector("#page-contents");
+const loadPlaylistTracks = async (playlistId) => {
+    alert(playlistId)
+    const playlist = await fetchData(`${ENDPOINTS.playlist}/${playlistId}`)
+    const playlistTracksection = document.querySelector("#tracks");
+    alert(playlistTracksection);
     // <section class="track grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 hover:bg-light-black">
     //     <p class="justify-self-center">1</p>
     //     <section class="grid grid-cols-[50px_1fr]">
@@ -73,7 +75,7 @@ const loadPlaylistTracks = async () => {
 
 };
 
-const fillContentForDashboard = async () => {
+const fillContentForDashboard = () => {
     const pageContents = document.querySelector("#page-contents");
     const playlistMap = new Map([['featured playlist', 'featured-playlist-items'], ['top playlist', 'top-playlist-items']]);
     let dashboardContent = "";
@@ -102,7 +104,7 @@ const fillContentForPlaylist = (playlistId) => {
         </ul>
         </nav>
     </header>
-    <section class="tracks px-8">`;
+    <section class="px-8" id="tracks"></section>`;
     loadPlaylistTracks(playlistId);
 };
 
@@ -119,15 +121,15 @@ const loadSection = (section) => {
         loadPlaylists();
     }
     else if (section.type == SECTIONTYPE.PLAYLIST) {
-        fillContentForPlaylist();
+        fillContentForPlaylist(section.playlist);
     }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    // loadUserProfile();
-    // const section = { type: SECTIONTYPE.DASHBOARD };
-    // history.pushState(section, "", "");
-    // loadSection(section);
+    loadUserProfile();
+    const section = { type: SECTIONTYPE.DASHBOARD };
+    history.pushState(section, "", "");
+    loadSection(section);
 
     document.addEventListener('click', () => {
         const menu = document.getElementById("user-profile-menu");
