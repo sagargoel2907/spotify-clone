@@ -4,8 +4,9 @@ export const EXPIRES_IN = "EXPIRES_IN";
 
 export const ENDPOINTS = {
     userProfile: "me",
-    featuredPlaylist: "browse/featured-playlists?limit=10",
-    topLists: "browse/categories/toplists/playlists?limit=50"
+    featuredPlaylist: "browse/featured-playlists?limit=5",
+    topLists: "browse/categories/toplists/playlists?limit=10",
+    playlist:"playlists"
 }
 
 export const logout = () => {

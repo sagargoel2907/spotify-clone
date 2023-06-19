@@ -10,9 +10,9 @@ const onProfileClick = (event) => {
     }
 };
 
-const onPlaylistItemClick = (event,id) => {
+const onPlaylistItemClick = (event, id) => {
     console.log('clicked');
-    const section = { type: SECTIONTYPE.PLAYLIST };
+    const section = { type: SECTIONTYPE.PLAYLIST, playlist: id };
     history.pushState(section, "", `playlist/${id}`);
     loadSection(section);
 };
@@ -43,7 +43,7 @@ const loadPlaylist = async (endpoint, elementId) => {
         const playlistItem = document.createElement('section');
         playlistItem.className = 'rounded p-4 hover:cursor-pointer bg-black-secondary hover:bg-light-black';
         playlistItem.id = id;
-        playlistItem.addEventListener('click', (event,id)=> onPlaylistItemClick(event,id));
+        playlistItem.addEventListener('click', (event) => onPlaylistItemClick(event, id));
         playlistItem.setAttribute('data-type', 'playlist');
         playlistItem.innerHTML = `
         <img src="${images[0].url}" alt="" class="rounded mb-2 object-contain shadow"/>
@@ -53,7 +53,27 @@ const loadPlaylist = async (endpoint, elementId) => {
     }
 };
 
-const fillContentForDashboard = () => {
+
+const loadPlaylistTracks = async () => {
+    const playlist = await fetchData(`ENDPOINTS.playlist/${playlistId}`)
+    const playlistTracksection = document.querySelector("#page-contents");
+    // <section class="track grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 hover:bg-light-black">
+    //     <p class="justify-self-center">1</p>
+    //     <section class="grid grid-cols-[50px_1fr]">
+    //         <img class="h-8 w-8" src="" alt="" />
+    //         <section>
+    //             <h2 class="text-xl text-white">Song</h2>
+    //             <p class="text-sm">Artist</p>
+    //         </section>
+    //     </section>
+    //     <p>Album</p>
+    //     <p>1:36</p>
+    // </section>
+    playlistTracksection.textContent = JSON.stringify(playlist);
+
+};
+
+const fillContentForDashboard = async () => {
     const pageContents = document.querySelector("#page-contents");
     const playlistMap = new Map([['featured playlist', 'featured-playlist-items'], ['top playlist', 'top-playlist-items']]);
     let dashboardContent = "";
@@ -69,6 +89,23 @@ const fillContentForDashboard = () => {
     pageContents.innerHTML = dashboardContent;
 };
 
+const fillContentForPlaylist = (playlistId) => {
+    const pageContents = document.querySelector("#page-contents");
+    pageContents.innerHTML = `
+    <header class="px-8">
+        <nav>
+        <ul class="grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2">
+            <li class="justify-self-center">#</li>
+            <li>Title</li>
+            <li>Album</li>
+            <li>⏱</li>
+        </ul>
+        </nav>
+    </header>
+    <section class="tracks px-8">`;
+    loadPlaylistTracks(playlistId);
+};
+
 
 const loadPlaylists = () => {
     loadPlaylist(ENDPOINTS.featuredPlaylist, "featured-playlist-items");
@@ -81,18 +118,16 @@ const loadSection = (section) => {
         fillContentForDashboard();
         loadPlaylists();
     }
-    else {
-        // load the playlist contents
+    else if (section.type == SECTIONTYPE.PLAYLIST) {
+        fillContentForPlaylist();
     }
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    loadUserProfile();
-    const section = { type: SECTIONTYPE.DASHBOARD };
-    history.pushState(section, "", "");
-    loadSection(section);
-    fillContentForDashboard();
-    loadPlaylists();
+    // loadUserProfile();
+    // const section = { type: SECTIONTYPE.DASHBOARD };
+    // history.pushState(section, "", "");
+    // loadSection(section);
 
     document.addEventListener('click', () => {
         const menu = document.getElementById("user-profile-menu");
@@ -119,6 +154,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-window.addEventListener('popstate', (event) => { 
+window.addEventListener('popstate', (event) => {
     loadSection(event.state);
 });
