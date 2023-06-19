@@ -14,3 +14,8 @@ export const logout = () => {
     localStorage.removeItem(EXPIRES_IN);
     window.location.href = import.meta.env.VITE_APP_URL;
 };
+
+export const SECTIONTYPE={
+    DASHBOARD:"DASHBOARD",
+    PLAYLIST:"PLAYLIST"
+}

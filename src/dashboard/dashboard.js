@@ -1,5 +1,5 @@
 import { fetchData } from "../api";
-import { ENDPOINTS, logout } from "../common";
+import { ENDPOINTS, SECTIONTYPE, logout } from "../common";
 
 const onProfileClick = (event) => {
     event.stopPropagation();
@@ -10,8 +10,11 @@ const onProfileClick = (event) => {
     }
 };
 
-const onPlaylistItemClick = () => {
+const onPlaylistItemClick = (event,id) => {
     console.log('clicked');
+    const section = { type: SECTIONTYPE.PLAYLIST };
+    history.pushState(section, "", `playlist/${id}`);
+    loadSection(section);
 };
 
 const loadUserProfile = async () => {
@@ -40,7 +43,7 @@ const loadPlaylist = async (endpoint, elementId) => {
         const playlistItem = document.createElement('section');
         playlistItem.className = 'rounded p-4 hover:cursor-pointer bg-black-secondary hover:bg-light-black';
         playlistItem.id = id;
-        playlistItem.addEventListener('click', onPlaylistItemClick);
+        playlistItem.addEventListener('click', (event,id)=> onPlaylistItemClick(event,id));
         playlistItem.setAttribute('data-type', 'playlist');
         playlistItem.innerHTML = `
         <img src="${images[0].url}" alt="" class="rounded mb-2 object-contain shadow"/>
@@ -72,8 +75,22 @@ const loadPlaylists = () => {
     loadPlaylist(ENDPOINTS.featuredPlaylist, "top-playlist-items");
 };
 
+
+const loadSection = (section) => {
+    if (section.type == SECTIONTYPE.DASHBOARD) {
+        fillContentForDashboard();
+        loadPlaylists();
+    }
+    else {
+        // load the playlist contents
+    }
+};
+
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
+    const section = { type: SECTIONTYPE.DASHBOARD };
+    history.pushState(section, "", "");
+    loadSection(section);
     fillContentForDashboard();
     loadPlaylists();
 
@@ -102,3 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+window.addEventListener('popstate', (event) => { 
+    loadSection(event.state);
+});
