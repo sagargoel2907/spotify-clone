@@ -57,6 +57,7 @@ const loadPlaylist = async (endpoint, elementId) => {
 const loadPlaylistTracks = async (playlistId) => {
     alert(playlistId)
     const playlist = await fetchData(`${ENDPOINTS.playlist}/${playlistId}`)
+    const tracks = playlist.tracks;
     const playlistTracksection = document.querySelector("#tracks");
     alert(playlistTracksection);
     // <section class="track grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 hover:bg-light-black">
@@ -71,7 +72,26 @@ const loadPlaylistTracks = async (playlistId) => {
     //     <p>Album</p>
     //     <p>1:36</p>
     // </section>
-    playlistTracksection.textContent = JSON.stringify(playlist);
+    for (let trackItem of tracks.items) {
+        let { id, artists, name, album, duration_ms } = trackItem.track;
+        let track = document.createElement('section');
+        track.className = "track grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 hover:bg-light-black";
+        let image = album.images.find(img => img.height == 64);
+        track.innerHTML = `
+        <p class="justify-self-center">1</p>
+        <section class="grid grid-cols-[50px_1fr]">
+            <img class="h-8 w-8" src="${image.url}" alt="${name}" />
+            <section>
+                <h2 class="text-xl text-white">${name}</h2>
+                <p class="text-sm">${Array.from(artists, artist => artist.name).join(', ')}</p>
+            </section>
+        </section>
+        <p>${album.name}</p>
+        <p>${duration_ms}</p>`;
+
+        playlistTracksection.appendChild(track);
+    }
+
 
 };
 
