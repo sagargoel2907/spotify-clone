@@ -53,21 +53,32 @@ const loadPlaylist = async (endpoint, elementId) => {
     }
 };
 
+const formatDuration=(duration)=>{
+    let minutes=Math.floor(duration / 60_000);
+    let seconds=Math.floor(duration / 1000) % 60;
+    minutes=minutes==0 ? "00":
+        minutes<=9 ? "0" + minutes:minutes.toString();
+    seconds=seconds==0 ? "00":
+        seconds<=9 ? "0" + seconds:seconds.toString();
+    return `${minutes}:${seconds}`;
+        
+};
+
 
 const loadPlaylistTracks = async (playlistId) => {
     const playlist = await fetchData(`${ENDPOINTS.playlist}/${playlistId}`)
     const tracks = playlist.tracks;
     const playlistTracksection = document.querySelector("#tracks");
-    let trackNo=1;
+    let trackNo = 1;
     for (let trackItem of tracks.items) {
         let { id, artists, name, album, duration_ms } = trackItem.track;
         let track = document.createElement('section');
-        track.className = "track grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 hover:bg-light-black";
-        track.id=id;
+        track.className = "track grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 hover:bg-light-black p-2 gap-2";
+        track.id = id;
         let image = album.images.find(img => img.height == 64);
         track.innerHTML = `
-        <p class="">${trackNo++}</p>
-        <section class="grid grid-cols-[50px_1fr]">
+        <p class="flex self-start justify-self-center">${trackNo++}</p>
+        <section class="grid grid-cols-[auto_1fr] gap-2">
             <img class="h-8 w-8" src="${image.url}" alt="${name}" />
             <section>
                 <h2 class="text-xl text-white">${name}</h2>
@@ -75,7 +86,7 @@ const loadPlaylistTracks = async (playlistId) => {
             </section>
         </section>
         <p>${album.name}</p>
-        <p>${duration_ms}</p>`;
+        <p>${formatDuration(duration_ms)}</p>`;
 
         playlistTracksection.appendChild(track);
     }
@@ -102,9 +113,9 @@ const fillContentForDashboard = () => {
 const fillContentForPlaylist = (playlistId) => {
     const pageContents = document.querySelector("#page-contents");
     pageContents.innerHTML = `
-    <header class="px-8">
+    <header class="px-8 py-8">
         <nav>
-        <ul class="grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2">
+        <ul class="grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 p-2">
             <li class="justify-self-center">#</li>
             <li>Title</li>
             <li>Album</li>
