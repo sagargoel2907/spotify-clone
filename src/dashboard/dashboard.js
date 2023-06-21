@@ -163,8 +163,10 @@ const loadSection = (section) => {
 
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
-    const section = { type: SECTIONTYPE.DASHBOARD };
-    history.pushState(section, "", "");
+    // const section = { type: SECTIONTYPE.DASHBOARD };
+    const section = { type: SECTIONTYPE.PLAYLIST, playlist:'37i9dQZF1DX4Cmr6Ex5w24' };
+    // history.pushState(section, "", "");
+    history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
 
     document.addEventListener('click', () => {
