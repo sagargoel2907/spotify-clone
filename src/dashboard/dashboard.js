@@ -18,6 +18,7 @@ const onPlaylistItemClick = (event, id) => {
 };
 
 const loadUserProfile = async () => {
+    const greetUser = document.querySelector("#greet-user");
     const defaultImage = document.querySelector("#default-image");
     const userProfileBtn = document.querySelector("#user-profile-btn");
     const displayNameElement = document.querySelector("#display-name");
@@ -25,6 +26,7 @@ const loadUserProfile = async () => {
     const userProfile = await fetchData(ENDPOINTS.userProfile);
     const { display_name: displayName, images } = userProfile;
     displayNameElement.textContent = displayName;
+    greetUser.textContent = displayName;
 
 
     userProfileBtn.addEventListener("click", onProfileClick);
@@ -71,7 +73,7 @@ const loadPlaylistTracks = async (playlistId) => {
     for (let trackItem of tracks.items) {
         let { id, artists, name, album, duration_ms } = trackItem.track;
         let track = document.createElement('section');
-        track.className = "track grid grid-cols-[auto_2fr_1fr_50px] items-center gap-2 hover:bg-light-black p-2 gap-2";
+        track.className = "track grid grid-cols-[50px_1fr_1fr_50px] items-center gap-2 hover:bg-light-black p-2 gap-2";
         track.id = id;
         let image = album.images.find(img => img.height == 64);
         track.innerHTML = `
@@ -79,11 +81,11 @@ const loadPlaylistTracks = async (playlistId) => {
         <section class="grid grid-cols-[auto_1fr] gap-2">
             <img class="h-8 w-8" src="${image.url}" alt="${name}" />
             <section>
-                <h2 class="text-xl text-white">${name}</h2>
-                <p class="text-sm">${Array.from(artists, artist => artist.name).join(', ')}</p>
+                <h2 class="text-xl text-white line-clamp-1">${name}</h2>
+                <p class="text-sm line-clamp-1">${Array.from(artists, artist => artist.name).join(', ')}</p>
             </section>
         </section>
-        <p>${album.name}</p>
+        <p class="line-clamp-1">${album.name}</p>
         <p>${formatDuration(duration_ms)}</p>`;
 
         playlistTracksection.appendChild(track);
@@ -117,26 +119,30 @@ const stickTracksHeaderOnScroll = (event) => {
     const { scrollTop } = event.target;
     if (scrollTop >= coverPage.offsetHeight) {
         // alert();
-        tracksHeader.classList.add("sticky", `top-10`, "bg-black-secondary");
+        tracksHeader.classList.add("sticky", "bg-black-secondary", "px-8");
+        tracksHeader.classList.remove("mx-8")
+        tracksHeader.style.top = `${header.offsetHeight}px`;
     } else {
-        tracksHeader.classList.remove("sticky", `top-10`, "bg-black-secondary");
+        tracksHeader.classList.remove("sticky", `top-10`, "bg-black-secondary", "px-8");
+        tracksHeader.classList.add("mx-8")
+
     }
 }
 
 const fillContentForPlaylist = (playlistId) => {
     const pageContents = document.querySelector("#page-contents");
     pageContents.innerHTML = `
-    <header id="tracks-header" class="px-8 py-8">
+    <header id="tracks-header" class="mx-8 py-4 border-light-black border-b-4">
         <nav>
-        <ul class="grid grid-cols-[auto_2fr_1fr_50px] items-center gap-2 p-2">
+        <ul class="grid grid-cols-[50px_1fr_1fr_50px] items-center gap-2 p-2">
             <li class="justify-self-center">#</li>
-            <li>Title</li>
-            <li>Album</li>
-            <li>⏱</li>
+            <li class="justify-self-start">Title</li>
+            <li class="justify-self-start">Album</li>
+            <li class="justify-self-center">⏱</li>
         </ul>
         </nav>
     </header>
-    <section class="px-8" id="tracks"></section>`;
+    <section class="px-8 mt-4" id="tracks"></section>`;
     loadPlaylistTracks(playlistId);
 };
 
@@ -164,9 +170,9 @@ const loadSection = (section) => {
 document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
     // const section = { type: SECTIONTYPE.DASHBOARD };
-    const section = { type: SECTIONTYPE.PLAYLIST, playlist:'37i9dQZF1DX4Cmr6Ex5w24' };
+    const section = { type: SECTIONTYPE.PLAYLIST, playlist: '37i9dQZF1DX4Cmr6Ex5w24' };
     // history.pushState(section, "", "");
-    history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
+    // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
 
     document.addEventListener('click', () => {
@@ -184,10 +190,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const { scrollTop } = event.target;
         if (scrollTop >= header.offsetHeight) {
             // alert();
-            header.classList.add("sticky", "top-0", "bg-black-secondary");
+            header.classList.add("sticky", "top-0", "bg-black");
             header.classList.remove("bg-transparent");
         } else {
-            header.classList.remove("sticky", "top-0", "bg-black-secondary");
+            header.classList.remove("sticky", "top-0", "bg-black");
             header.classList.add("bg-transparent");
         }
     })
