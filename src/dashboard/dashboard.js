@@ -90,6 +90,7 @@ const loadPlaylistTracks = async (playlistId) => {
 
         playlistTracksection.appendChild(track);
     }
+playlistTracksection.addEventListener('scroll',stickTracksHeaderOnScroll);
 
 
 };
@@ -110,10 +111,24 @@ const fillContentForDashboard = () => {
     pageContents.innerHTML = dashboardContent;
 };
 
+const stickTracksHeaderOnScroll=()=>{
+    const coverPage=document.querySelector('#cover-content');
+    const tracksHeader=document.querySelector('#tracks-header');
+    const tracks=document.querySelector('#tracks');
+    alert();
+    const { scrollTop } = event.target;
+        if (scrollTop >= coverPage.offsetHeight) {
+            // alert();
+            tracksHeader.classList.add("sticky", "top-0", "bg-black-secondary");
+        } else {
+            tracksHeader.classList.remove("sticky", "top-0", "bg-black-secondary");
+        }
+}
+
 const fillContentForPlaylist = (playlistId) => {
     const pageContents = document.querySelector("#page-contents");
     pageContents.innerHTML = `
-    <header class="px-8 py-8">
+    <header id="tracks-header" class="px-8 py-8">
         <nav>
         <ul class="grid grid-cols-[50px_2fr_1fr_50px] items-center gap-2 p-2">
             <li class="justify-self-center">#</li>
@@ -136,6 +151,10 @@ const loadPlaylists = () => {
 
 const loadSection = (section) => {
     if (section.type == SECTIONTYPE.DASHBOARD) {
+        const playlistTracksection = document.querySelector("#tracks");
+       // alert(playlistTracksection);
+        playlistTracksection?.removeEventListener('scroll',stickTracksHeaderOnScroll);
+        
         fillContentForDashboard();
         loadPlaylists();
     }
