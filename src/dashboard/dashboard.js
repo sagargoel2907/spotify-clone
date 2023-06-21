@@ -77,7 +77,10 @@ const loadPlaylistTracks = async (playlistId) => {
         track.id = id;
         let image = album.images.find(img => img.height == 64);
         track.innerHTML = `
-        <p class="flex self-start justify-self-center">${trackNo++}</p>
+        <p class="flex self-start justify-self-center">
+            <span id="track-no">${trackNo++}</span>
+            <span id="track-play" class="invisible">▶</span>
+        </p>
         <section class="grid grid-cols-[auto_1fr] gap-2">
             <img class="h-8 w-8" src="${image.url}" alt="${name}" />
             <section>
