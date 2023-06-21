@@ -73,7 +73,7 @@ const loadPlaylistTracks = async (playlistId) => {
     for (let trackItem of tracks.items) {
         let { id, artists, name, album, duration_ms } = trackItem.track;
         let track = document.createElement('section');
-        track.className = "track grid grid-cols-[50px_1fr_1fr_50px] items-center gap-2 hover:bg-light-black p-2 gap-2";
+        track.className = "track grid grid-cols-[50px_1fr_1fr_50px] items-center gap-2 hover:bg-light-black p-2 gap-4";
         track.id = id;
         let image = album.images.find(img => img.height == 64);
         track.innerHTML = `
@@ -134,7 +134,7 @@ const fillContentForPlaylist = (playlistId) => {
     pageContents.innerHTML = `
     <header id="tracks-header" class="mx-8 py-4 border-light-black border-b-4">
         <nav>
-        <ul class="grid grid-cols-[50px_1fr_1fr_50px] items-center gap-2 p-2">
+        <ul class="grid grid-cols-[50px_1fr_1fr_50px] items-center gap-4 p-2">
             <li class="justify-self-center">#</li>
             <li class="justify-self-start">Title</li>
             <li class="justify-self-start">Album</li>
