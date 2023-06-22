@@ -64,20 +64,25 @@ const formatDuration = (duration) => {
 
 };
 
-const onTrackSelection=(id,event)=>{
-    const tracks=document.querySelectorAll("#tracks .track");
-    for(let track of tracks){
-        if(track.id==id){
-            track.classList.add("selected","bg-gray");
+const onTrackSelection = (id, event) => {
+    const tracks = document.querySelectorAll("#tracks .track");
+    for (let track of tracks) {
+        if (track.id == id) {
+            track.classList.add("selected", "bg-gray");
         }
-        else{
-            track.classList.remove("selected","bg-gray");
+        else {
+            track.classList.remove("selected", "bg-gray");
         }
     }
 };
 
-const onTrackPlay=(event,{name,id,artistNames,duration_ms,image,previewUrl})=>{
-    // alert(JSON.stringify({name,id,artistNames,duration_ms,image,previewUrl}));
+const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
+    const nowPlayingImage = document.querySelector('#now-playing-image');
+    const nowPlayingName = document.querySelector('#now-playing-name');
+    const nowPlayingArtists = document.querySelector('#now-playing-artists');
+    nowPlayingImage.src = image.url;
+    nowPlayingName.textContent = name;
+    nowPlayingArtists.textContent = artistNames;
 }
 
 const loadPlaylistTracks = async (playlistId) => {
@@ -86,12 +91,12 @@ const loadPlaylistTracks = async (playlistId) => {
     const playlistTracksection = document.querySelector("#tracks");
     let trackNo = 1;
     for (let trackItem of tracks.items) {
-        const { id, artists, name, album, duration_ms, preview_url:previewUrl} = trackItem.track;
+        const { id, artists, name, album, duration_ms, preview_url: previewUrl } = trackItem.track;
         const track = document.createElement('section');
         track.className = "track grid grid-cols-[50px_1fr_1fr_50px] items-center gap-2 hover:bg-light-black p-2 gap-4";
         track.id = id;
         const image = album.images.find(img => img.height == 64);
-        const artistNames=Array.from(artists, artist => artist.name).join(', ')
+        const artistNames = Array.from(artists, artist => artist.name).join(', ')
         track.innerHTML = `
         <p class="flex self-start justify-self-center relative">
             <span class="track-no">${trackNo++}</span>
@@ -99,19 +104,19 @@ const loadPlaylistTracks = async (playlistId) => {
         <section class="grid grid-cols-[auto_1fr] gap-2">
             <img class="h-8 w-8" src="${image.url}" alt="${name}" />
             <section>
-                <h2 class="text-xl text-white line-clamp-1">${name}</h2>
+                <h2 class="text-bas text-white line-clamp-1">${name}</h2>
                 <p class="text-sm line-clamp-1">${artistNames}</p>
             </section>
         </section>
         <p class="line-clamp-1">${album.name}</p>
         <p>${formatDuration(duration_ms)}</p>`;
-        const playButton=document.createElement("button");
-        playButton.className="play invisible absolute left-0";
-        playButton.id=`play-track${id}`;
-        playButton.textContent='▶';
-        playButton.addEventListener('click',(event)=>onTrackPlay(event,{name,id,artistNames,duration_ms,image,previewUrl}))
+        const playButton = document.createElement("button");
+        playButton.className = "play invisible absolute left-0";
+        playButton.id = `play-track${id}`;
+        playButton.textContent = '▶';
+        playButton.addEventListener('click', (event) => onTrackPlay(event, { name, id, artistNames, duration_ms, image, previewUrl }))
         track.querySelector('p').appendChild(playButton);
-        track.addEventListener("click",(event)=>onTrackSelection(id,event))
+        track.addEventListener("click", (event) => onTrackSelection(id, event))
         playlistTracksection.appendChild(track);
     }
 };
@@ -153,7 +158,7 @@ const stickTracksHeaderOnScroll = (event) => {
 const fillContentForPlaylist = (playlistId) => {
     const pageContents = document.querySelector("#page-contents");
     pageContents.innerHTML = `
-    <header id="tracks-header" class="mx-8 py-4 border-light-black border-b-4">
+    <header id="tracks-header" class="mx-8 py-4 border-light-black border-b-4 z-10">
         <nav>
         <ul class="grid grid-cols-[50px_1fr_1fr_50px] items-center gap-4 p-2">
             <li class="justify-self-center">#</li>

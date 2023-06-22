@@ -1,72 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spotify Music App</title>
-    <link rel="stylesheet" href="../main.css" />
-    <script type="module" src="./dashboard.js"></script>
-  </head>
 
-  <body class="h-screen bg-black text-primary">
-    <main
-      class="grid-template-areas grid h-full grid-cols-[250px_1fr] grid-rows-[1fr_auto]"
-    >
-      <aside class="sidenav">aside</aside>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Music App</title>
+  <link rel="stylesheet" href="../main.css" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+  <!-- <script type="module" src="./dashboard.js"></script> -->
+</head>
 
-      <article class="content relative overflow-auto">
-        <header class="header bg-transparent px-4 py-2">
-          <nav class="relative flex justify-end">
-            <button
-              type="button"
-              id="user-profile-btn"
-              class="flex items-center gap-x-2 rounded-2xl p-2 px-4 hover:bg-black-secondary"
-            >
-              <section>
-                <svg
-                  id="default-image"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="h-8 w-8 rounded-full bg-gray"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-              </section>
-              <section class="flex justify-center gap-1">
-                <h3 id="display-name"></h3>
-                <i>🔻</i>
-              </section>
-            </button>
-            <ul
-              id="user-profile-menu"
-              class="absolute top-14 hidden w-40 rounded-lg bg-black-secondary p-0.5"
-            >
-              <li id="menu-logout-btn" class="rounded-lg p-1 hover:bg-gray">
-                Log Out
-              </li>
-            </ul>
-          </nav>
-        </header>
-        <section
-          id="cover-content"
-          class="absolute -z-[1] grid h-72 w-full content-center bg-gradient-to-b from-light-black to-black-base px-4"
-        >
-          <h1 class="text-6xl">Hello <span id="greet-user"></span></h1>
+<body class="h-screen bg-black text-primary">
+  <main class="grid-template-areas grid h-full grid-cols-[250px_1fr] grid-rows-[1fr_auto]">
+    <aside class="sidenav">aside</aside>
+
+    <article class="content relative overflow-auto">
+      <header class="header bg-transparent px-4 py-2 z-10">
+        <nav class="relative flex justify-end">
+          <button type="button" id="user-profile-btn"
+            class="flex items-center gap-x-2 rounded-2xl p-2 px-4 hover:bg-black-secondary">
+            <section>
+              <svg id="default-image" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke-width="1.5" stroke="currentColor" class="h-8 w-8 rounded-full bg-gray">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </section>
+            <section class="flex justify-center gap-1">
+              <h3 id="display-name"></h3>
+              <i>🔻</i>
+            </section>
+          </button>
+          <ul id="user-profile-menu" class="absolute top-14 hidden w-40 rounded-lg bg-black-secondary p-0.5">
+            <li id="menu-logout-btn" class="rounded-lg p-1 hover:bg-gray">
+              Log Out
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <section id="cover-content"
+        class="absolute -z-[1] grid h-72 w-full content-center bg-gradient-to-b from-light-black to-black-base px-4">
+        <h1 class="text-6xl">Hello <span id="greet-user"></span></h1>
+      </section>
+      <section id="page-contents" class="mt-60 bg-black-base p-4 text-secondary"></section>
+    </article>
+
+    <footer class="now-playing grid grid-cols-[1fr_2fr_1fr] p-4 text-secondary gap-6 bg-black-secondary">
+      <section class="flex flex-row gap-2 justify-center items-center" id="now-playing-description">
+        <img src="" alt="image" id="now-playing-image" />
+        <section>
+          <h2 class="text-bas text-white line-clamp-1" id="now-playing-name">
+            song name
+          </h2>
+          <p class="text-sm line-clamp-1" id="now-playing-artists">
+            artist names
+          </p>
         </section>
-        <section
-          id="page-contents"
-          class="mt-60 bg-black-base p-4 text-secondary"
-        ></section>
-      </article>
+      </section>
+      <section id="now-playing-controls" class="flex flex-col items-center justify-center">
+        <section class="hover:text-white">
+          <button id="prev">
+            <span class="material-symbols-outlined" style="font-size: 48px;">skip_previous</span>
+          </button>
+          <button id="play">
+            <span class="material-symbols-outlined" style="font-size: 48px;">play_circle</span>
+          </button>
+          <button id="next">
+            <span class="material-symbols-outlined" style="font-size: 48px;"> skip_next </span>
+          </button>
+        </section>
+        <section class="flex gap-2 w-full items-center">
+          <span id="total-duration-completed">0:00</span>
+          <section id="progress" class="bg-secondary h-2 w-full rounded-3xl cursor-pointer"></section>
+          <span id="total-duration">0:00</span>
+        </section>
+      </section>
+      <section class="flex justify-center items-center">
+        <span class="material-symbols-outlined" style="font-size: 32px;">volume_up</span>
+        <input type="range" name="volume" id="volume" min="0" max="100" value="100">
+      </section>
+    </footer>
+  </main>
+</body>
 
-      <footer class="now-playing">now-playing</footer>
-    </main>
-  </body>
 </html>
