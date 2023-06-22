@@ -99,11 +99,12 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     audio.removeEventListener("loadedmetadata", onMetadataLoaded);
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
     audio.src = previewUrl;
-    if (interval) clearInterval(interval);
+    // if (interval) clearInterval(interval);
     const interval = setInterval(() => {
         if (audio.paused) return
         totalDurationCompleted.textContent = formatDuration(audio.currentTime.toFixed(0) * 1000);
-        progress.style.width = `${(audio.currentTime / audio.duration) * 100}%`;
+        progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
+        // alert(progress.style.width);
     }, 100);
     audio.play();
 }
