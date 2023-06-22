@@ -1,6 +1,15 @@
 import { fetchData } from "../api";
 import { ENDPOINTS, SECTIONTYPE, logout } from "../common";
 
+// const prevButton = document.querySelector("#prev");
+const playButton = document.querySelector("#play");
+// const nextButton = document.querySelector("#next");
+const progress = document.querySelector("#progress");
+const volumeInput = document.querySelector("#volume");
+const totalDuration = document.querySelector("#total-duration");
+const totalDurationCompleted = document.querySelector("#total-duration-completed");
+const audio = new Audio();
+
 const onProfileClick = (event) => {
     event.stopPropagation();
     const menu = document.getElementById("user-profile-menu");
@@ -76,6 +85,10 @@ const onTrackSelection = (id, event) => {
     }
 };
 
+const onMetadataLoaded = () => {
+    totalDuration.textContent = `0:${audio.duration.toFixed(0)}`;
+};
+
 const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
     const nowPlayingImage = document.querySelector('#now-playing-image');
     const nowPlayingName = document.querySelector('#now-playing-name');
@@ -83,6 +96,16 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     nowPlayingImage.src = image.url;
     nowPlayingName.textContent = name;
     nowPlayingArtists.textContent = artistNames;
+    audio.removeEventListener("loadedmetadata", onMetadataLoaded);
+    audio.addEventListener("loadedmetadata", onMetadataLoaded);
+    audio.src = previewUrl;
+
+    setInterval(() => {
+        if (audio.paused) return
+        totalDurationCompleted.textContent = formatDuration(audio.currentTime.toFixed(0) * 1000);
+        progress.style.width=`${(audio.currentTime/audio.duration)*100}%`;
+    }, 100);
+    audio.play();
 }
 
 const loadPlaylistTracks = async (playlistId) => {
