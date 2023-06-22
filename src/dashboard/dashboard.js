@@ -64,6 +64,21 @@ const formatDuration = (duration) => {
 
 };
 
+const onTrackSelection=(id,event)=>{
+    const tracks=document.querySelectorAll("#tracks .track");
+    for(let track of tracks){
+        if(track.id==id){
+            track.classList.add("selected","bg-gray");
+        }
+        else{
+            track.classList.remove("selected","bg-gray");
+        }
+    }
+};
+
+const onTrackPlay=(event,{name,id,artistNames,duration_ms,image,previewUrl})=>{
+    // alert(JSON.stringify({name,id,artistNames,duration_ms,image,previewUrl}));
+}
 
 const loadPlaylistTracks = async (playlistId) => {
     const playlist = await fetchData(`${ENDPOINTS.playlist}/${playlistId}`)
@@ -71,31 +86,34 @@ const loadPlaylistTracks = async (playlistId) => {
     const playlistTracksection = document.querySelector("#tracks");
     let trackNo = 1;
     for (let trackItem of tracks.items) {
-        let { id, artists, name, album, duration_ms } = trackItem.track;
-        let track = document.createElement('section');
+        const { id, artists, name, album, duration_ms, preview_url:previewUrl} = trackItem.track;
+        const track = document.createElement('section');
         track.className = "track grid grid-cols-[50px_1fr_1fr_50px] items-center gap-2 hover:bg-light-black p-2 gap-4";
         track.id = id;
-        let image = album.images.find(img => img.height == 64);
+        const image = album.images.find(img => img.height == 64);
+        const artistNames=Array.from(artists, artist => artist.name).join(', ')
         track.innerHTML = `
-        <p class="flex self-start justify-self-center">
-            <span id="track-no">${trackNo++}</span>
-            <span id="track-play" class="invisible">▶</span>
+        <p class="flex self-start justify-self-center relative">
+            <span class="track-no">${trackNo++}</span>
         </p>
         <section class="grid grid-cols-[auto_1fr] gap-2">
             <img class="h-8 w-8" src="${image.url}" alt="${name}" />
             <section>
                 <h2 class="text-xl text-white line-clamp-1">${name}</h2>
-                <p class="text-sm line-clamp-1">${Array.from(artists, artist => artist.name).join(', ')}</p>
+                <p class="text-sm line-clamp-1">${artistNames}</p>
             </section>
         </section>
         <p class="line-clamp-1">${album.name}</p>
         <p>${formatDuration(duration_ms)}</p>`;
-
+        const playButton=document.createElement("button");
+        playButton.className="play invisible absolute left-0";
+        playButton.id=`play-track${id}`;
+        playButton.textContent='▶';
+        playButton.addEventListener('click',(event)=>onTrackPlay(event,{name,id,artistNames,duration_ms,image,previewUrl}))
+        track.querySelector('p').appendChild(playButton);
+        track.addEventListener("click",(event)=>onTrackSelection(id,event))
         playlistTracksection.appendChild(track);
     }
-    document.querySelector(".content").addEventListener('scroll', stickTracksHeaderOnScroll);
-
-
 };
 
 const fillContentForDashboard = () => {
@@ -146,6 +164,7 @@ const fillContentForPlaylist = (playlistId) => {
         </nav>
     </header>
     <section class="px-8 mt-4" id="tracks"></section>`;
+    document.querySelector(".content").addEventListener('scroll', stickTracksHeaderOnScroll);
     loadPlaylistTracks(playlistId);
 };
 
