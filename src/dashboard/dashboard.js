@@ -9,6 +9,8 @@ const volumeInput = document.querySelector("#volume");
 const totalDuration = document.querySelector("#total-duration");
 const totalDurationCompleted = document.querySelector("#total-duration-completed");
 const audio = new Audio();
+audio.addEventListener("loadedmetadata", onMetadataLoaded);
+
 
 const onProfileClick = (event) => {
     event.stopPropagation();
@@ -96,8 +98,8 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     nowPlayingImage.src = image.url;
     nowPlayingName.textContent = name;
     nowPlayingArtists.textContent = artistNames;
-    audio.removeEventListener("loadedmetadata", onMetadataLoaded);
-    audio.addEventListener("loadedmetadata", onMetadataLoaded);
+    // audio.removeEventListener("loadedmetadata", onMetadataLoaded);
+    // audio.addEventListener("loadedmetadata", onMetadataLoaded);
     audio.src = previewUrl;
     // if (interval) clearInterval(interval);
     const interval = setInterval(() => {
