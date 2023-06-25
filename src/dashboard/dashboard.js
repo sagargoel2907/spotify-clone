@@ -9,8 +9,6 @@ const volumeInput = document.querySelector("#volume");
 const totalDuration = document.querySelector("#total-duration");
 const totalDurationCompleted = document.querySelector("#total-duration-completed");
 const audio = new Audio();
-audio.addEventListener("loadedmetadata", onMetadataLoaded);
-
 
 const onProfileClick = (event) => {
     event.stopPropagation();
@@ -88,6 +86,7 @@ const onTrackSelection = (id, event) => {
 };
 
 const onMetadataLoaded = () => {
+    // console.log("hi");
     totalDuration.textContent = `0:${audio.duration.toFixed(0)}`;
 };
 
@@ -221,12 +220,15 @@ const loadSection = (section) => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+    // alert();
     loadUserProfile();
     // const section = { type: SECTIONTYPE.DASHBOARD };
     const section = { type: SECTIONTYPE.PLAYLIST, playlist: '37i9dQZF1DX4Cmr6Ex5w24' };
     // history.pushState(section, "", "");
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
+    audio.addEventListener("loadedmetadata", onMetadataLoaded);
+    
 
     document.addEventListener('click', () => {
         const menu = document.getElementById("user-profile-menu");
