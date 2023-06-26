@@ -254,32 +254,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
-    audio.addEventListener("ended", (event) => togglePlayer(event, { id: currentSongId });)
-playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
+    audio.addEventListener("ended", (event) => togglePlayer(event, { id: currentSongId }));
+    playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
 
 
-document.addEventListener('click', () => {
-    const menu = document.getElementById("user-profile-menu");
-    if (!menu.classList.contains("hidden")) {
-        menu.classList.add("hidden");
-    }
-})
+    document.addEventListener('click', () => {
+        const menu = document.getElementById("user-profile-menu");
+        if (!menu.classList.contains("hidden")) {
+            menu.classList.add("hidden");
+        }
+    })
 
-document.querySelector(".content").addEventListener('scroll', (event) => {
-    // alert();
-    const header = document.querySelector('.header');
-    // alert(JSON.stringify(event));
-    // alert(header);
-    const { scrollTop } = event.target;
-    if (scrollTop >= header.offsetHeight) {
+    document.querySelector(".content").addEventListener('scroll', (event) => {
         // alert();
-        header.classList.add("sticky", "top-0", "bg-black");
-        header.classList.remove("bg-transparent");
-    } else {
-        header.classList.remove("sticky", "top-0", "bg-black");
-        header.classList.add("bg-transparent");
-    }
-})
+        const header = document.querySelector('.header');
+        // alert(JSON.stringify(event));
+        // alert(header);
+        const { scrollTop } = event.target;
+        if (scrollTop >= header.offsetHeight) {
+            // alert();
+            header.classList.add("sticky", "top-0", "bg-black");
+            header.classList.remove("bg-transparent");
+        } else {
+            header.classList.remove("sticky", "top-0", "bg-black");
+            header.classList.add("bg-transparent");
+        }
+    })
 
 });
 
