@@ -10,7 +10,7 @@ const totalDuration = document.querySelector("#total-duration");
 const totalDurationCompleted = document.querySelector("#total-duration-completed");
 const audio = new Audio();
 // let interval;
-const currentSongId = "";
+let currentSongId = "";
 
 const onProfileClick = (event) => {
     event.stopPropagation();
@@ -95,6 +95,7 @@ const onMetadataLoaded = () => {
 
 
 const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
+    // alert([id, currentSongId]);
     const trackPlayButton = document.querySelector(`#play-track${id}`);
     if (currentSongId !== id) {
         onTrackPlay(event, { name, id, artistNames, duration_ms, image, previewUrl });
@@ -108,6 +109,7 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
         playButton.querySelector("span").textContent = "play_circle";
         audio.pause();
     }
+    currentSongId = id;
 }
 
 const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
@@ -248,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
-    playButton.addEventListener('click', (event) => togglePlayer(event, currentSongId));
+    playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
 
 
     document.addEventListener('click', () => {
