@@ -100,7 +100,11 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
     if (currentSongId !== id) {
         onTrackPlay(event, { name, id, artistNames, duration_ms, image, previewUrl });
     }
-    if (audio.paused) {
+    if (audio.ended) {
+        trackPlayButton.textContent = "▶";
+        playButton.querySelector("span").textContent = "play_circle";
+    }
+    else if (audio.paused) {
         trackPlayButton.textContent = "ll";
         playButton.querySelector("span").textContent = "pause_circle";
         audio.play();
@@ -250,31 +254,32 @@ document.addEventListener("DOMContentLoaded", () => {
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
-    playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
+    audio.addEventListener("ended", (event) => togglePlayer(event, { id: currentSongId });)
+playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
 
 
-    document.addEventListener('click', () => {
-        const menu = document.getElementById("user-profile-menu");
-        if (!menu.classList.contains("hidden")) {
-            menu.classList.add("hidden");
-        }
-    })
+document.addEventListener('click', () => {
+    const menu = document.getElementById("user-profile-menu");
+    if (!menu.classList.contains("hidden")) {
+        menu.classList.add("hidden");
+    }
+})
 
-    document.querySelector(".content").addEventListener('scroll', (event) => {
+document.querySelector(".content").addEventListener('scroll', (event) => {
+    // alert();
+    const header = document.querySelector('.header');
+    // alert(JSON.stringify(event));
+    // alert(header);
+    const { scrollTop } = event.target;
+    if (scrollTop >= header.offsetHeight) {
         // alert();
-        const header = document.querySelector('.header');
-        // alert(JSON.stringify(event));
-        // alert(header);
-        const { scrollTop } = event.target;
-        if (scrollTop >= header.offsetHeight) {
-            // alert();
-            header.classList.add("sticky", "top-0", "bg-black");
-            header.classList.remove("bg-transparent");
-        } else {
-            header.classList.remove("sticky", "top-0", "bg-black");
-            header.classList.add("bg-transparent");
-        }
-    })
+        header.classList.add("sticky", "top-0", "bg-black");
+        header.classList.remove("bg-transparent");
+    } else {
+        header.classList.remove("sticky", "top-0", "bg-black");
+        header.classList.add("bg-transparent");
+    }
+})
 
 });
 
