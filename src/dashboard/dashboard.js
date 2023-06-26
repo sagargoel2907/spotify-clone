@@ -87,6 +87,7 @@ const onTrackSelection = (id, event) => {
 
 const onMetadataLoaded = () => {
     // console.log("hi");
+    alert("song clicked");
     totalDuration.textContent = `0:${audio.duration.toFixed(0)}`;
 };
 
@@ -228,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
-    
+
 
     document.addEventListener('click', () => {
         const menu = document.getElementById("user-profile-menu");
