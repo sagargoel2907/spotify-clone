@@ -8,6 +8,7 @@ const progress = document.querySelector("#progress");
 const volumeInput = document.querySelector("#volume");
 const totalDuration = document.querySelector("#total-duration");
 const totalDurationCompleted = document.querySelector("#total-duration-completed");
+const timeline = document.querySelector("#timeline");
 const audio = new Audio();
 // let interval;
 let currentSongId = "";
@@ -137,8 +138,22 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     // audio.play();
 }
 
+
+const loadPlaylistCoverPage = (playlist) => {
+    const coverPage = document.querySelector("#cover-content");
+    const { name, images: [image], description, tracks: { items } } = playlist;
+    coverPage.innerHTML = `
+        <img src="${image.url}" alt="" class="h-36 w-36" />
+        <section class="flex items-start flex-col gap-2">
+        <h1 class="text-4xl">${name}</h1>
+        <h3>${description}</h3>
+        <p>${tracks.length}</p>
+        </section>`;
+}
+
 const loadPlaylistTracks = async (playlistId) => {
     const playlist = await fetchData(`${ENDPOINTS.playlist}/${playlistId}`)
+    loadPlaylistCoverPage(playlist);
     const tracks = playlist.tracks;
     const playlistTracksection = document.querySelector("#tracks");
     let trackNo = 1;
@@ -264,6 +279,17 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!menu.classList.contains("hidden")) {
             menu.classList.add("hidden");
         }
+    });
+
+    timeline.addEventListener('click', (event) => {
+        const timelinewidth = window.getComputedStyle(timeline).width;
+        const timeToSeek = (event.offsetX / parseInt(timelinewidth)) * audio.duration;
+        audio.currentTime = timeToSeek;
+        progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
+    },);
+
+    volumeInput.addEventListener('change', () => {
+        audio.volume = volumeInput.value / 100;
     })
 
     document.querySelector(".content").addEventListener('scroll', (event) => {
