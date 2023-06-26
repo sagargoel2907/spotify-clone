@@ -106,6 +106,7 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
     } else {
         trackPlayButton.textContent = "▶";
         playButton.querySelector("span").textContent = "play_circle";
+        audio.pause();
     }
 }
 
@@ -158,7 +159,7 @@ const loadPlaylistTracks = async (playlistId) => {
         playButton.className = "play invisible absolute left-0";
         playButton.id = `play-track${id}`;
         playButton.textContent = '▶';
-        playButton.addEventListener('click', (event) => onTrackPlay(event, { name, id, artistNames, duration_ms, image, previewUrl }))
+        playButton.addEventListener('click', (event) => togglePlayer(event, { name, id, artistNames, duration_ms, image, previewUrl }))
         track.querySelector('p').appendChild(playButton);
         track.addEventListener("click", (event) => onTrackSelection(id, event))
         playlistTracksection.appendChild(track);
@@ -247,6 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
+    playButton.addEventListener('click', (event) => togglePlayer(event, currentSongId));
 
 
     document.addEventListener('click', () => {
