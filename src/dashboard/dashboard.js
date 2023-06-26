@@ -9,6 +9,8 @@ const volumeInput = document.querySelector("#volume");
 const totalDuration = document.querySelector("#total-duration");
 const totalDurationCompleted = document.querySelector("#total-duration-completed");
 const audio = new Audio();
+// let interval;
+const currentSongId = "";
 
 const onProfileClick = (event) => {
     event.stopPropagation();
@@ -87,9 +89,25 @@ const onTrackSelection = (id, event) => {
 
 const onMetadataLoaded = () => {
     // console.log("hi");
-    alert("song clicked");
+    // alert("song clicked");
     totalDuration.textContent = `0:${audio.duration.toFixed(0)}`;
 };
+
+
+const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
+    const trackPlayButton = document.querySelector(`#play-track${id}`);
+    if (currentSongId !== id) {
+        onTrackPlay(event, { name, id, artistNames, duration_ms, image, previewUrl });
+    }
+    if (audio.paused) {
+        trackPlayButton.textContent = "ll";
+        playButton.querySelector("span").textContent = "pause_circle";
+        audio.play();
+    } else {
+        trackPlayButton.textContent = "▶";
+        playButton.querySelector("span").textContent = "play_circle";
+    }
+}
 
 const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
     const nowPlayingImage = document.querySelector('#now-playing-image');
@@ -102,13 +120,13 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     // audio.addEventListener("loadedmetadata", onMetadataLoaded);
     audio.src = previewUrl;
     // if (interval) clearInterval(interval);
-    const interval = setInterval(() => {
+    setInterval(() => {
         if (audio.paused) return
         totalDurationCompleted.textContent = formatDuration(audio.currentTime.toFixed(0) * 1000);
         progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
         // alert(progress.style.width);
     }, 100);
-    audio.play();
+    // audio.play();
 }
 
 const loadPlaylistTracks = async (playlistId) => {
