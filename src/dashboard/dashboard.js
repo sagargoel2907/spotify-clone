@@ -103,6 +103,7 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
     if (audio.ended) {
         trackPlayButton.textContent = "▶";
         playButton.querySelector("span").textContent = "play_circle";
+        currentSongId = "";
     }
     else if (audio.paused) {
         trackPlayButton.textContent = "ll";
