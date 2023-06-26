@@ -9,6 +9,7 @@ const volumeInput = document.querySelector("#volume");
 const totalDuration = document.querySelector("#total-duration");
 const totalDurationCompleted = document.querySelector("#total-duration-completed");
 const audio = new Audio();
+// alert(audio.paused);
 
 const onProfileClick = (event) => {
     event.stopPropagation();
