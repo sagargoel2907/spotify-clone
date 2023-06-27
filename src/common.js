@@ -1,12 +1,12 @@
 export const ACCESS_TOKEN = "ACCESS_TOKEN";
 export const TOKEN_TYPE = "TOKEN_TYPE";
 export const EXPIRES_IN = "EXPIRES_IN";
-
+export const LOADED_PLAYLIST = "LOADED_PLAYLIST";
 export const ENDPOINTS = {
     userProfile: "me",
     featuredPlaylist: "browse/featured-playlists?limit=5",
     topLists: "browse/categories/toplists/playlists?limit=10",
-    playlist:"playlists"
+    playlist: "playlists"
 }
 
 export const logout = () => {
@@ -16,7 +16,12 @@ export const logout = () => {
     window.location.href = import.meta.env.VITE_APP_URL;
 };
 
-export const SECTIONTYPE={
-    DASHBOARD:"DASHBOARD",
-    PLAYLIST:"PLAYLIST"
+export const setItemInLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
+
+export const getItemFromLocalStorage = (key, value) => JSON.parse(localStorage.getItem(key, JSON.stringify(value)));
+
+
+export const SECTIONTYPE = {
+    DASHBOARD: "DASHBOARD",
+    PLAYLIST: "PLAYLIST"
 }

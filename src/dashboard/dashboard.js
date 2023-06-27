@@ -1,9 +1,7 @@
 import { fetchData } from "../api";
-import { ENDPOINTS, SECTIONTYPE, logout } from "../common";
+import { ENDPOINTS, LOADED_PLAYLIST, SECTIONTYPE, getItemFromLocalStorage, logout, setItemInLocalStorage } from "../common";
 
-// const prevButton = document.querySelector("#prev");
-const playButton = document.querySelector("#play");
-// const nextButton = document.querySelector("#next");
+
 
 const audio = new Audio();
 // let interval;
@@ -121,6 +119,23 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     // audio.play();
 }
 
+const playPrevTrack = async () => {
+    const { playlist, currentTrackIndex } = await getCurrentTrackIndex();
+    if (currentTrackIndex > 0) {
+        togglePlayer(null, playlist[currentTrackIndex - 1]);
+    }
+};
+const playNextTrack = async () => {
+    const { playlist, currentTrackIndex } = await getCurrentTrackIndex();
+    if (currentTrackIndex + 1 < playlist.length) {
+        togglePlayer(null, playlist[currentTrackIndex + 1]);
+    }
+};
+const getCurrentTrackIndex = async () => {
+    const playlist = await getItemFromLocalStorage(LOADED_PLAYLIST);
+    const currentTrackIndex = playlist.findIndex(track => track.id == currentSongId);
+    return { playlist, currentTrackIndex };
+};
 
 const loadPlaylistCoverPage = (playlist) => {
     const coverPage = document.querySelector("#cover-content");
@@ -136,6 +151,7 @@ const loadPlaylistCoverPage = (playlist) => {
 
 const loadPlaylistTracks = async (playlistId) => {
     const playlist = await fetchData(`${ENDPOINTS.playlist}/${playlistId}`)
+    let loadedPlaylist = [];
     loadPlaylistCoverPage(playlist);
     const tracks = playlist.tracks;
     const playlistTracksection = document.querySelector("#tracks");
@@ -169,7 +185,9 @@ const loadPlaylistTracks = async (playlistId) => {
         track.querySelector('p').appendChild(playButton);
         track.addEventListener("click", (event) => onTrackSelection(id, event))
         playlistTracksection.appendChild(track);
+        loadedPlaylist.push({ name, id, artistNames, image, previewUrl });
     }
+    setItemInLocalStorage(LOADED_PLAYLIST, loadPlaylist);
 };
 
 const fillContentForDashboard = () => {
@@ -251,6 +269,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // const section = { type: SECTIONTYPE.DASHBOARD };
     const section = { type: SECTIONTYPE.PLAYLIST, playlist: '37i9dQZF1DX4Cmr6Ex5w24' };
     loadSection(section);
+    const prevButton = document.querySelector("#prev");
+    const playButton = document.querySelector("#play");
+    const nextButton = document.querySelector("#next");
     const progress = document.querySelector("#progress");
     const volumeInput = document.querySelector("#volume");
     const totalDuration = document.querySelector("#total-duration");
@@ -281,6 +302,8 @@ document.addEventListener("DOMContentLoaded", () => {
         playButton.querySelector("span").textContent = "play_circle";
     })
     playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
+    prevButton.addEventListener('click', playPrevTrack);
+    nextButton.addEventListener('click', playNextTrack);
 
 
     document.addEventListener('click', () => {
