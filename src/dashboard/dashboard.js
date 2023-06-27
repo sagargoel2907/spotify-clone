@@ -164,7 +164,7 @@ const loadPlaylistTracks = async (playlistId) => {
         playButton.className = "play invisible absolute left-0";
         playButton.id = `play-track${id}`;
         playButton.innerHTML = `<span class="material-symbols-outlined"
-        >play</span`;
+        >play_arrow</span`;
         playButton.addEventListener('click', (event) => togglePlayer(event, { name, id, artistNames, duration_ms, image, previewUrl }))
         track.querySelector('p').appendChild(playButton);
         track.addEventListener("click", (event) => onTrackSelection(id, event))
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
     // const section = { type: SECTIONTYPE.DASHBOARD };
     const section = { type: SECTIONTYPE.PLAYLIST, playlist: '37i9dQZF1DX4Cmr6Ex5w24' };
-    const trackPlayButton = document.querySelector(`#play-track${id}`);
+    loadSection(section);
     const progress = document.querySelector("#progress");
     const volumeInput = document.querySelector("#volume");
     const totalDuration = document.querySelector("#total-duration");
@@ -258,10 +258,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const timeline = document.querySelector("#timeline");
     // history.pushState(section, "", "");
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
-    loadSection(section);
 
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
-    audio.addEventListener("ended", (event) => togglePlayer(event, { id: currentSongId }));
+    // audio.addEventListener("ended", (event) => togglePlayer(event, { id: currentSongId }));
     let interval;
     audio.addEventListener("play", () => {
         interval = setInterval(() => {
@@ -269,6 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
             progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
             // alert(progress.style.width);
         }, 100);
+        const trackPlayButton = document.querySelector(`#play-track${currentSongId}`);
         trackPlayButton.querySelector('span').textContent = "pause";
         playButton.querySelector("span").textContent = "pause_circle";
     });
@@ -276,7 +276,8 @@ document.addEventListener("DOMContentLoaded", () => {
         if (interval) {
             clearInterval(interval);
         }
-        trackPlayButton.querySelector('span').textContent = "play";
+        const trackPlayButton = document.querySelector(`#play-track${currentSongId}`);
+        trackPlayButton.querySelector('span').textContent = "play_arrow";
         playButton.querySelector("span").textContent = "play_circle";
     })
     playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
