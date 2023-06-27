@@ -4,11 +4,7 @@ import { ENDPOINTS, SECTIONTYPE, logout } from "../common";
 // const prevButton = document.querySelector("#prev");
 const playButton = document.querySelector("#play");
 // const nextButton = document.querySelector("#next");
-const progress = document.querySelector("#progress");
-const volumeInput = document.querySelector("#volume");
-const totalDuration = document.querySelector("#total-duration");
-const totalDurationCompleted = document.querySelector("#total-duration-completed");
-const timeline = document.querySelector("#timeline");
+
 const audio = new Audio();
 // let interval;
 let currentSongId = "";
@@ -101,12 +97,8 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
     if (currentSongId !== id) {
         onTrackPlay(event, { name, id, artistNames, duration_ms, image, previewUrl });
     }
-    if (audio.ended) {
-        trackPlayButton.textContent = "▶";
-        playButton.querySelector("span").textContent = "play_circle";
-        currentSongId = "";
-    }
-    else if (audio.paused) {
+
+    if (audio.paused) {
         trackPlayButton.textContent = "ll";
         playButton.querySelector("span").textContent = "pause_circle";
         audio.play();
@@ -129,12 +121,7 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     // audio.addEventListener("loadedmetadata", onMetadataLoaded);
     audio.src = previewUrl;
     // if (interval) clearInterval(interval);
-    setInterval(() => {
-        if (audio.paused) return
-        totalDurationCompleted.textContent = formatDuration(audio.currentTime.toFixed(0) * 1000);
-        progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
-        // alert(progress.style.width);
-    }, 100);
+
     // audio.play();
 }
 
@@ -266,11 +253,35 @@ document.addEventListener("DOMContentLoaded", () => {
     loadUserProfile();
     // const section = { type: SECTIONTYPE.DASHBOARD };
     const section = { type: SECTIONTYPE.PLAYLIST, playlist: '37i9dQZF1DX4Cmr6Ex5w24' };
+    const trackPlayButton = document.querySelector(`#play-track${id}`);
+    const progress = document.querySelector("#progress");
+    const volumeInput = document.querySelector("#volume");
+    const totalDuration = document.querySelector("#total-duration");
+    const totalDurationCompleted = document.querySelector("#total-duration-completed");
+    const timeline = document.querySelector("#timeline");
     // history.pushState(section, "", "");
     // history.pushState(section, "", `playlist/37i9dQZF1DX4Cmr6Ex5w24`);
     loadSection(section);
+
     audio.addEventListener("loadedmetadata", onMetadataLoaded);
     audio.addEventListener("ended", (event) => togglePlayer(event, { id: currentSongId }));
+    let interval;
+    audio.addEventListener("play", () => {
+        interval = setInterval(() => {
+            totalDurationCompleted.textContent = formatDuration(audio.currentTime.toFixed(0) * 1000);
+            progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
+            // alert(progress.style.width);
+        }, 100);
+        trackPlayButton.textContent = "ll";
+        playButton.querySelector("span").textContent = "pause_circle";
+    });
+    audio.addEventListener("pause", () => {
+        if (interval) {
+            clearInterval(interval);
+        }
+        trackPlayButton.textContent = "▶";
+        playButton.querySelector("span").textContent = "play_circle";
+    })
     playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
 
 
