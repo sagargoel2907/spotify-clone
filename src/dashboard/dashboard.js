@@ -101,7 +101,6 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
     } else {
         audio.pause();
     }
-    currentSongId = id;
 }
 
 const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
@@ -111,16 +110,14 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     nowPlayingImage.src = image.url;
     nowPlayingName.textContent = name;
     nowPlayingArtists.textContent = artistNames;
-    // audio.removeEventListener("loadedmetadata", onMetadataLoaded);
-    // audio.addEventListener("loadedmetadata", onMetadataLoaded);
     audio.src = previewUrl;
-    // if (interval) clearInterval(interval);
-
-    // audio.play();
+    currentSongId = id;
+    
 }
 
 const playPrevTrack = async () => {
     const { playlist, currentTrackIndex } = await getCurrentTrackIndex();
+    alert(currentTrackIndex);
     if (currentTrackIndex > 0) {
         togglePlayer(null, playlist[currentTrackIndex - 1]);
     }
@@ -187,7 +184,7 @@ const loadPlaylistTracks = async (playlistId) => {
         playlistTracksection.appendChild(track);
         loadedPlaylist.push({ name, id, artistNames, image, previewUrl });
     }
-    setItemInLocalStorage(LOADED_PLAYLIST, loadPlaylist);
+    setItemInLocalStorage(LOADED_PLAYLIST, loadedPlaylist);
 };
 
 const fillContentForDashboard = () => {
