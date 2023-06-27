@@ -99,12 +99,8 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
     }
 
     if (audio.paused) {
-        trackPlayButton.textContent = "ll";
-        playButton.querySelector("span").textContent = "pause_circle";
         audio.play();
     } else {
-        trackPlayButton.textContent = "▶";
-        playButton.querySelector("span").textContent = "play_circle";
         audio.pause();
     }
     currentSongId = id;
@@ -167,7 +163,8 @@ const loadPlaylistTracks = async (playlistId) => {
         const playButton = document.createElement("button");
         playButton.className = "play invisible absolute left-0";
         playButton.id = `play-track${id}`;
-        playButton.textContent = '▶';
+        playButton.innerHTML = `<span class="material-symbols-outlined"
+        >play</span`;
         playButton.addEventListener('click', (event) => togglePlayer(event, { name, id, artistNames, duration_ms, image, previewUrl }))
         track.querySelector('p').appendChild(playButton);
         track.addEventListener("click", (event) => onTrackSelection(id, event))
@@ -272,14 +269,14 @@ document.addEventListener("DOMContentLoaded", () => {
             progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
             // alert(progress.style.width);
         }, 100);
-        trackPlayButton.textContent = "ll";
+        trackPlayButton.querySelector('span').textContent = "pause";
         playButton.querySelector("span").textContent = "pause_circle";
     });
     audio.addEventListener("pause", () => {
         if (interval) {
             clearInterval(interval);
         }
-        trackPlayButton.textContent = "▶";
+        trackPlayButton.querySelector('span').textContent = "play";
         playButton.querySelector("span").textContent = "play_circle";
     })
     playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
@@ -296,7 +293,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const timelinewidth = window.getComputedStyle(timeline).width;
         const timeToSeek = (event.offsetX / parseInt(timelinewidth)) * audio.duration;
         audio.currentTime = timeToSeek;
-        progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
+        progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}% `;
     }, false);
 
     volumeInput.addEventListener('change', () => {
