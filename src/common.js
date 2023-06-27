@@ -18,7 +18,7 @@ export const logout = () => {
 
 export const setItemInLocalStorage = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
-export const getItemFromLocalStorage = (key, value) => JSON.parse(localStorage.getItem(key, JSON.stringify(value)));
+export const getItemFromLocalStorage = async (key, value) => JSON.parse(localStorage.getItem(key, JSON.stringify(value)));
 
 
 export const SECTIONTYPE = {

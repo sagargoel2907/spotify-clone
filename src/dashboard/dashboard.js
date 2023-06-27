@@ -111,8 +111,12 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     nowPlayingName.textContent = name;
     nowPlayingArtists.textContent = artistNames;
     audio.src = previewUrl;
+    const track = document.querySelector(`#${currentSongId}`);
+    track.classList.remove("underline", "text-green");
     currentSongId = id;
-    
+    track.classList.add("underline", "text-green");
+
+
 }
 
 const playPrevTrack = async () => {
