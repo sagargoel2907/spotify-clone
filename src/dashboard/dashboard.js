@@ -147,7 +147,7 @@ const loadPlaylistCoverPage = (playlist) => {
         <section class="flex items-start flex-col gap-2">
         <h1 class="text-4xl">${name}</h1>
         <h3>${description}</h3>
-        <p>${tracks.length}</p>
+        <p>${items.length} songs</p>
         </section>`;
 }
 
@@ -286,7 +286,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const timeToSeek = (event.offsetX / parseInt(timelinewidth)) * audio.duration;
         audio.currentTime = timeToSeek;
         progress.style.width = `${((audio.currentTime / audio.duration) * 100).toFixed(0)}%`;
-    },);
+    }, false);
 
     volumeInput.addEventListener('change', () => {
         audio.volume = volumeInput.value / 100;
