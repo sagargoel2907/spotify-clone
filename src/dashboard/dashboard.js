@@ -95,6 +95,7 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
         onTrackPlay(event, { name, id, artistNames, duration_ms, image, previewUrl });
     }
     if (audio.paused) {
+        // alert();
         audio.play();
     } else {
         audio.pause();
@@ -110,7 +111,6 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     nowPlayingArtists.textContent = artistNames;
     audio.src = previewUrl;
     if (currentSongId) {
-        alert(currentSongId);
         let track = document.getElementById(currentSongId);
         track?.querySelector(".track-no").classList.remove("text-green");
         track?.querySelector(".track-name").classList.remove("text-green","underline");
@@ -300,6 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
         playButton.querySelector("span").textContent = "pause_circle";
     });
     audio.addEventListener("pause", () => {
+        alert("puase event triggered");
         if (interval) {
             clearInterval(interval);
         }
