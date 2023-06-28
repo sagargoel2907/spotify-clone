@@ -307,7 +307,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const trackPlayButton = document.querySelector(`#play-track${currentSongId}`);
         if (trackPlayButton) trackPlayButton.querySelector('span').textContent = "play_arrow";
         playButton.querySelector("span").textContent = "play_circle";
-    })
+    });
+
+    audio.addEventListener("change",()=>{
+        alert();
+    });
+    
     playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
     prevButton.addEventListener('click', playPrevTrack);
     nextButton.addEventListener('click', playNextTrack);
