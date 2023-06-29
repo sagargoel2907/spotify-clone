@@ -9,14 +9,31 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"
     />
-    <script type="module" src="./dashboard.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="shortcut icon" href="../assets/Spotify_Icon_RGB_Green.png" type="image/x-icon">
+    <!-- <script type="module" src="./dashboard.js"></script> -->
   </head>
 
   <body class="h-screen bg-black text-primary">
     <main
       class="grid-template-areas grid h-full grid-cols-[250px_1fr] grid-rows-[1fr_auto]"
     >
-      <aside class="sidenav">aside</aside>
+      <aside class="sidenav flex flex-col p-4 text-xl"> 
+        <img src="../assets/Spotify_Logo_RGB_Green.png" class="w-48 self-center" alt="">
+        <ul class="flex flex-col gap-2 text-secondary mt-8">
+          <li class="flex gap-2 hover:bg-black-secondary p-2 rounded-xl cursor-pointer">
+            <a href="/">
+              <span class="material-symbols-rounded">home</span>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="flex gap-2  hover:bg-black-secondary p-2 rounded-xl cursor-pointer">
+            <span class="material-symbols-rounded">person</span>
+            <span>Account</span>
+          </li>
+          
+        </ul>
+      </aside>
 
       <article class="content relative overflow-auto">
         <header class="header z-10 bg-transparent px-4 py-2">
