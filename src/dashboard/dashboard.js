@@ -102,7 +102,15 @@ const togglePlayer = (event, { name, id, artistNames, duration_ms, image, previe
     }
 }
 
+const onTrackChange = () => {
+    const playButton = document.querySelector("#play");
+    const trackPlayButton = document.querySelector(`#play-track${currentSongId}`);
+    if (trackPlayButton) trackPlayButton.querySelector('span').textContent = "play_arrow";
+    playButton.querySelector("span").textContent = "play_circle";
+}
+
 const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, previewUrl }) => {
+    onTrackChange();
     const nowPlayingImage = document.querySelector('#now-playing-image');
     const nowPlayingName = document.querySelector('#now-playing-name');
     const nowPlayingArtists = document.querySelector('#now-playing-artists');
@@ -113,12 +121,12 @@ const onTrackPlay = (event, { name, id, artistNames, duration_ms, image, preview
     if (currentSongId) {
         let track = document.getElementById(currentSongId);
         track?.querySelector(".track-no").classList.remove("text-green");
-        track?.querySelector(".track-name").classList.remove("text-green","underline");
+        track?.querySelector(".track-name").classList.remove("text-green", "underline");
     }
     currentSongId = id;
     let track = document.getElementById(currentSongId);
     track?.querySelector(".track-no").classList.add("text-green");
-    track?.querySelector(".track-name").classList.add("text-green","underline");
+    track?.querySelector(".track-name").classList.add("text-green", "underline");
 
 }
 
@@ -309,10 +317,10 @@ document.addEventListener("DOMContentLoaded", () => {
         playButton.querySelector("span").textContent = "play_circle";
     });
 
-    audio.addEventListener("change",()=>{
+    audio.addEventListener("change", () => {
         alert();
     });
-    
+
     playButton.addEventListener('click', (event) => togglePlayer(event, { id: currentSongId }));
     prevButton.addEventListener('click', playPrevTrack);
     nextButton.addEventListener('click', playNextTrack);
